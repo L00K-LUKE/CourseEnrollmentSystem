@@ -1,4 +1,3 @@
-package PACKAGE_NAME;
+public abstract class ClassSession {
 
-public class ClassSession {
 }
