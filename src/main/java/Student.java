@@ -1,4 +1,4 @@
-import java.util.Set;
+package main.java;
 
 public class Student {
 
@@ -33,11 +33,11 @@ public class Student {
 
     // Methods
     public void enroll(Course course) {
-        pass
+        ;
     }
 
     public boolean checkTimetableClash(Course course) {
-        return True;
+        return true;
     }
 
 }

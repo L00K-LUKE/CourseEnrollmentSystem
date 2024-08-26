@@ -1,4 +1,6 @@
-public enum daysOfWeek {
+package main.java;
+
+public enum DaysOfWeek {
     MONDAY,
     TUESDAY,
     WEDNESDAY,
