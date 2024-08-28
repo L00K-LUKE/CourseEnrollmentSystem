@@ -37,22 +37,6 @@ public abstract class ClassSession {
         return endTime;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public String getTutor() {
-        return tutor;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
     // Setters
 
     public void setTitle(String str) {

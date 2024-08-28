@@ -26,16 +26,9 @@ public class Course {
     }
 
     // Getters
-    public String getCourseId() {
-        return courseId;
-    }
 
     public String getCourseName() {
         return courseName;
-    }
-
-    public String getLecturer() {
-        return lecturer;
     }
 
     public Set<ClassSession> getSchedule() {

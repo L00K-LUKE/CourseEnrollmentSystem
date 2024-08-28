@@ -16,23 +16,6 @@ public class Student {
         this.timetable = timetable;
     }
 
-    // Getters
-    public String getName() {
-        return name;
-    }
-
-    public String getStudentID() {
-        return studentID;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Timetable getTimetable() {
-        return timetable;
-    }
-
     // Methods
     public boolean enroll(Course course) {
         Set<ClassSession> newCourseClasses = course.getSchedule();
