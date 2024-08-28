@@ -18,20 +18,26 @@ public class Student {
 
     // Methods
     public boolean enroll(Course course) {
-        Set<ClassSession> newCourseClasses = course.getSchedule();
-
-        for (ClassSession newSession : newCourseClasses) {
-            if (timetable.checkClash(newSession)) {
-                System.out.println("Clash Detected: " + newSession.getDetails());
-                return false;
-            }
+        if (checkTimetableClash(course)) {
+            return false;
         }
         timetable.addCourse(course);
         return true;
     }
 
     public boolean checkTimetableClash(Course course) {
-        return true;
+        Set<ClassSession> newCourseClasses = course.getSchedule();
+        for (ClassSession newSession : newCourseClasses) {
+            if (timetable.checkClash(newSession)) {
+                informUserOfClash(newSession);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void informUserOfClash(ClassSession session) {
+        System.out.println("Clash Detected: " + session.getDetails());
     }
 
 }
