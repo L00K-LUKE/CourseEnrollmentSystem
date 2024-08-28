@@ -34,16 +34,17 @@ public class Student {
     }
 
     // Methods
-    public void enroll(Course course) {
+    public boolean enroll(Course course) {
         Set<ClassSession> newCourseClasses = course.getSchedule();
 
         for (ClassSession newSession : newCourseClasses) {
             if (timetable.checkClash(newSession)) {
                 System.out.println("Clash Detected: " + newSession.getDetails());
-                return;
+                return false;
             }
         }
         timetable.addCourse(course);
+        return true;
     }
 
     public boolean checkTimetableClash(Course course) {
