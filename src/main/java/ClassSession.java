@@ -9,16 +9,14 @@ public abstract class ClassSession {
     private LocalTime startTime;
     private LocalTime endTime;
     private String location;
-    private String tutor;
     private Course course;
     private String title;
 
-    public ClassSession(DaysOfWeek day, LocalTime startTime, LocalTime endTime, String location, String tutor, Course course) {
+    public ClassSession(DaysOfWeek day, LocalTime startTime, LocalTime endTime, String location, Course course) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.tutor = tutor;
         this.course = course;
 
         this.title = null;
@@ -66,8 +64,8 @@ public abstract class ClassSession {
     public String getDetails() {
         String courseName = course.getCourseName();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String details = String.format("COURSE: %s | TYPE: %s |  DAY: %s | TIME: %s  UNTIL %s",
-                courseName, this.title, this.day, this.startTime.format(formatter), this.endTime.format(formatter));
+        String details = String.format("COURSE: %s | TYPE: %s | LOCATION: %s |  DAY: %s | TIME: %s UNTIL %s",
+                courseName, this.title, this.location, this.day, this.startTime.format(formatter), this.endTime.format(formatter));
         return details;
     }
 
