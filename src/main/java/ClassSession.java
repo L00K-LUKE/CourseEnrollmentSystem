@@ -2,7 +2,6 @@ package main.java;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 public abstract class ClassSession {
     private DaysOfWeek day;
