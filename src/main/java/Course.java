@@ -11,13 +11,6 @@ public class Course {
     String lecturer;
     Set<ClassSession> schedule;
 
-    public Course(String courseId, String courseName, String lecturer, Set<ClassSession> schedule) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.lecturer = lecturer;
-        this.schedule = schedule;
-    }
-
     public Course(String courseId, String courseName, String lecturer ) {
         this.courseId = courseId;
         this.courseName = courseName;
