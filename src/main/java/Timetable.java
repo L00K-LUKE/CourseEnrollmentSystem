@@ -8,7 +8,7 @@ public class Timetable {
     Set<ClassSession> sessions;
 
     public Timetable() {
-        this.sessions = new HashSet<ClassSession>();
+        this.sessions = new HashSet<>();
     }
 
     // Getters
