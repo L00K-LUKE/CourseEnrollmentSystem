@@ -16,6 +16,12 @@ public class Student {
         this.timetable = timetable;
     }
 
+    // Getters
+
+    public Timetable getTimetable() {
+        return timetable;
+    }
+
     // Methods
     public boolean enroll(Course course) {
         if (checkTimetableClash(course)) {
