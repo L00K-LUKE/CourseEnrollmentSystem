@@ -1,6 +1,5 @@
 package main.java;
 
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +14,7 @@ public class Course {
         this.courseId = courseId;
         this.courseName = courseName;
         this.lecturer = lecturer;
-        this.schedule = new HashSet<ClassSession>();
+        this.schedule = new HashSet<>();
     }
 
     // Getters
