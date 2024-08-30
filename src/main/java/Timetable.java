@@ -11,6 +11,13 @@ public class Timetable {
         this.sessions = new HashSet<ClassSession>();
     }
 
+    // Getters
+
+    public Set<ClassSession> getSessions() {
+        return sessions;
+    }
+
+
     // Methods
 
     public void addSession(ClassSession session) {
