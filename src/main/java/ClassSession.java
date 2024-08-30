@@ -64,7 +64,7 @@ public abstract class ClassSession {
     public String getDetails() {
         String courseName = course.getCourseName();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        String details = String.format("COURSE: %s | TYPE: %s | LOCATION: %s |  DAY: %s | TIME: %s UNTIL %s",
+        String details = String.format("COURSE: %s | TYPE: %s | LOCATION: %s | DAY: %s | TIME: %s UNTIL %s",
                 courseName, this.title, this.location, this.day, this.startTime.format(formatter), this.endTime.format(formatter));
         return details;
     }
