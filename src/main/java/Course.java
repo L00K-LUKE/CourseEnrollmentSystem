@@ -4,14 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Course {
+    private static int courseIdIncrementer = 1;
 
     String courseId;
     String courseName;
     String lecturer;
     Set<ClassSession> schedule;
 
-    public Course(String courseId, String courseName, String lecturer ) {
-        this.courseId = courseId;
+    public Course(String courseName, String lecturer ) {
+        this.courseId = String.valueOf(courseIdIncrementer++);
         this.courseName = courseName;
         this.lecturer = lecturer;
         this.schedule = new HashSet<>();
