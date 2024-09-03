@@ -13,7 +13,7 @@ class StudentTest {
 
     @Test
     void checkTimetableClash_noClashSoShouldReturnFalse() {
-        Student student = new Student("Mary", "53629M", "mary@studentemail.ac.uk", new Timetable());
+        Student student = new Student("Mary", new Timetable());
 
         Course course = new Course("5", "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
@@ -29,7 +29,7 @@ class StudentTest {
 
     @Test
     void checkTimetableClash_clashShouldReturnTrue() {
-        Student student = new Student("Kyle", "53612K", "kyle@studentemail.ac.uk", new Timetable());
+        Student student = new Student("Kyle", new Timetable());
 
         Course course = new Course("5", "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
@@ -47,7 +47,7 @@ class StudentTest {
 
     @Test
     void enroll_noClashSoShouldAddClassesToTimetableAndReturnTrue() {
-        Student student = new Student("Erin", "53611E", "Erin@studentemail.ac.uk", new Timetable());
+        Student student = new Student("Erin", new Timetable());
 
         Course course = new Course("5", "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
@@ -64,7 +64,7 @@ class StudentTest {
 
     @Test
     void enroll_ClashSoShouldReturnFalse() {
-        Student student = new Student("Erin", "53611E", "Erin@studentemail.ac.uk", new Timetable());
+        Student student = new Student("Erin", new Timetable());
 
         Course course1 = new Course("5", "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
@@ -86,7 +86,7 @@ class StudentTest {
 
     @Test
     void enroll_ClashSoShouldInformUserByPrintingDetails() {
-        Student student = new Student("Erin", "53611E", "Erin@studentemail.ac.uk", new Timetable());
+        Student student = new Student("Erin", new Timetable());
 
         Course course1 = new Course("5", "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
