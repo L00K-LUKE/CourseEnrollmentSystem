@@ -36,4 +36,9 @@ public class Course {
         schedule.remove(session);
     }
 
+    @Override
+    public String toString() {
+
+        return courseId + " | " + courseName + " | " + lecturer;
+    }
 }
