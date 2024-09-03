@@ -4,16 +4,19 @@ import java.util.Set;
 
 public class Student {
 
+    static int studentIdIncrementer = 1;
+
     private String name;
     private String studentID;
     private String email;
     private Timetable timetable;
 
-    public Student(String name, String studentID, String email, Timetable timetable) {
+    public Student(String name, Timetable timetable) {
         this.name = name;
-        this.studentID = studentID;
-        this.email = email;
         this.timetable = timetable;
+
+        this.studentID = String.valueOf(Student.studentIdIncrementer++);
+        this.email = this.studentID + "@student.scl.edu.uk";
     }
 
     // Getters
@@ -46,4 +49,8 @@ public class Student {
         System.out.println("Clash Detected: " + session.getDetails());
     }
 
+    @Override
+    public String toString() {
+        return name + " " + studentID;
+    }
 }
