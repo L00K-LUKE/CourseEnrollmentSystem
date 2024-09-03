@@ -96,8 +96,18 @@ public class App extends JFrame{
         timetableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Code to handle Timetable button click
                 JOptionPane.showMessageDialog(null, "Timetable feature is not implemented yet.");
+            }
+        });
+
+        detailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = studentList.getSelectedIndex();
+                if (selectedIndex == -1) {
+                    JOptionPane.showMessageDialog(null, "Please select a student to view details.");
+                }
+                JOptionPane.showMessageDialog(null, studentListModel.get(selectedIndex).getInfo());
             }
         });
 

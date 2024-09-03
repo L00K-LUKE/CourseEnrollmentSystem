@@ -49,6 +49,10 @@ public class Student {
         System.out.println("Clash Detected: " + session.getDetails());
     }
 
+    public String getInfo() {
+        return String.format("Name: %s | Student Id: %s | Email: %s ", name, studentID, email);
+    }
+
     @Override
     public String toString() {
         return "Name: " + name + "   Student_Id: " + studentID;
