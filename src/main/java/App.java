@@ -18,8 +18,7 @@ public class App extends JFrame{
         JTabbedPane tabbedPane = new JTabbedPane();
 
         // Create course panel
-        JPanel coursePanel = new JPanel();
-        coursePanel.add(new JLabel("Manage Courses Here"));
+        JPanel coursePanel = coursePanel();
         tabbedPane.addTab("Courses", coursePanel);
 
 
@@ -32,6 +31,66 @@ public class App extends JFrame{
 
         // Display the frame
         frame.setVisible(true);
+    }
+
+    public JPanel coursePanel() {
+        JPanel coursePanel = new JPanel();
+        coursePanel.setLayout(new BorderLayout());
+
+        JButton addButton;
+        JButton removeButton;
+        DefaultListModel<Course> courseListModel;
+        JList<Course> courseList;
+
+        // Top Panel (Add and Remove Course Buttons)
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new FlowLayout());
+
+        addButton = new JButton("Add Course");
+        removeButton = new JButton("Remove Course");
+
+        topPanel.add(addButton);
+        topPanel.add(removeButton);
+
+        coursePanel.add(topPanel, BorderLayout.NORTH);
+
+        // Center Panel (List of Courses)
+        JPanel centerPanel = new JPanel();
+        courseListModel = new DefaultListModel<>();
+        courseList = new JList<>(courseListModel);
+        courseList.setBackground(Color.WHITE);
+        courseList.setForeground(Color.BLACK);
+
+        coursePanel.add(new JScrollPane(courseList), BorderLayout.CENTER);
+
+        // Action Listeners
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextField courseNameField = new JTextField();
+                JTextField lecturerNameField = new JTextField();
+
+                courseNameField.setPreferredSize(new Dimension(200,25));
+                lecturerNameField.setPreferredSize(new Dimension(200,25));
+
+                JPanel iptPanel = new JPanel();
+                iptPanel.setLayout(new FlowLayout());
+                iptPanel.add(new JLabel("Course Name:"));
+                iptPanel.add(courseNameField);
+                iptPanel.add(Box.createHorizontalStrut(15));
+                iptPanel.add(new JLabel("Course Lecturer:"));
+                iptPanel.add(lecturerNameField);
+
+                int result = JOptionPane.showConfirmDialog(null, iptPanel, "Please input Course Name and Lecturer", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    courseListModel.addElement(new Course(courseNameField.getText(), lecturerNameField.getText()));
+                }
+            }
+        });
+
+
+        return coursePanel;
     }
 
     public JPanel studentPanel() {
@@ -58,8 +117,8 @@ public class App extends JFrame{
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
 
-        addButton = new JButton("Add");
-        removeButton = new JButton("Remove");
+        addButton = new JButton("Add Student");
+        removeButton = new JButton("Remove Student");
         timetableButton = new JButton("Timetable");
         detailsButton = new JButton("Details");
         bottomPanel.add(addButton);
