@@ -14,8 +14,8 @@ class ClassSessionTest {
     @Test
     void conflictsWith_Session1EndsBeforeSession2StartsShouldReturnFalse() {
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start1 = LocalTime.of(10,30);
         LocalTime end1 = LocalTime.of(11,30);
@@ -32,8 +32,8 @@ class ClassSessionTest {
     @Test
     void conflictsWith_Session1StartsAfterSession2EndsShouldReturnFalse() {
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start1 = LocalTime.of(12,30);
         LocalTime end1 = LocalTime.of(14,30);
@@ -50,8 +50,8 @@ class ClassSessionTest {
     @Test
     void conflictsWith_SessionsAtExactSameTimesShouldReturnTrue() {
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
@@ -64,8 +64,8 @@ class ClassSessionTest {
 
     @Test
     void conflictsWith_SessionsOnDifferentDaysShouldReturnFalse() {
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
@@ -80,8 +80,8 @@ class ClassSessionTest {
     @Test
     void conflictsWith_Session2StartsDuringSession1ShouldReturnTrue() {
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start1 = LocalTime.of(10,0);
         LocalTime end1 = LocalTime.of(14,0);
@@ -98,7 +98,7 @@ class ClassSessionTest {
     @Test
     void getDetails_correctlyFormatsOutputWhenSessionStartsAndFinishesAM() {
 
-        Course course = new Course("0001","WAD", "Michael");
+        Course course = new Course("WAD", "Michael");
 
         LocalTime start = LocalTime.of(9,0);
         LocalTime end = LocalTime.of(11,0);
@@ -113,7 +113,7 @@ class ClassSessionTest {
     @Test
     void getDetails_correctlyFormatsOutputWhenSessionStartsAMAndFinishesPM() {
 
-        Course course = new Course("0001","WAD", "Michael");
+        Course course = new Course("WAD", "Michael");
 
         LocalTime start = LocalTime.of(9,0);
         LocalTime end = LocalTime.of(13,0);
@@ -128,7 +128,7 @@ class ClassSessionTest {
     @Test
     void getDetails_correctlyFormatsOutputWhenSessionStartsAndFinishesPM() {
 
-        Course course = new Course("0001","WAD", "Michael");
+        Course course = new Course("WAD", "Michael");
 
         LocalTime start = LocalTime.of(14,0);
         LocalTime end = LocalTime.of(17,15);

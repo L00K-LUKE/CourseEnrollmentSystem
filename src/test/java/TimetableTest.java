@@ -14,8 +14,8 @@ class TimetableTest {
     void checkClash_WithClashesShouldReturnTrue() {
         Timetable timetable = new Timetable();
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
@@ -34,8 +34,8 @@ class TimetableTest {
     void checkClash_WithNoClashesShouldReturnFalse() {
         Timetable timetable = new Timetable();
 
-        Course course1 = new Course("0001","HCI", "Bob");
-        Course course2 = new Course("0002","ADS", "Sarah");
+        Course course1 = new Course("HCI", "Bob");
+        Course course2 = new Course("ADS", "Sarah");
 
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
@@ -55,7 +55,7 @@ class TimetableTest {
     void addCourse_shouldAddAllClassesBelongingToCourseToTimetableSet() {
         Timetable timetable = new Timetable();
 
-        Course course = new Course("0001","HCI", "Louise");
+        Course course = new Course("HCI", "Louise");
 
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
@@ -78,7 +78,7 @@ class TimetableTest {
     void addCourse_addingCourseWithNoSessionsShouldDoNothing() {
         Timetable timetable = new Timetable();
 
-        Course course = new Course("0060","JUDO101", "Sam");
+        Course course = new Course("JUDO101", "Sam");
 
         timetable.addCourse(course);
 
@@ -89,7 +89,7 @@ class TimetableTest {
     void removeSession_shouldRemoveSessionFromTimetable() {
         Timetable timetable = new Timetable();
 
-        Course course = new Course("0060","JUDO101", "Sam");
+        Course course = new Course("JUDO101", "Sam");
         LocalTime start = LocalTime.of(13,0);
         LocalTime end = LocalTime.of(14,0);
         ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "Main Building", course);

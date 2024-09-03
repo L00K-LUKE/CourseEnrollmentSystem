@@ -15,7 +15,7 @@ class StudentTest {
     void checkTimetableClash_noClashSoShouldReturnFalse() {
         Student student = new Student("Mary", new Timetable());
 
-        Course course = new Course("5", "Singing", "Mr Soprano");
+        Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(12,20);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
@@ -31,7 +31,7 @@ class StudentTest {
     void checkTimetableClash_clashShouldReturnTrue() {
         Student student = new Student("Kyle", new Timetable());
 
-        Course course = new Course("5", "Singing", "Mr Soprano");
+        Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(12,20);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
@@ -49,7 +49,7 @@ class StudentTest {
     void enroll_noClashSoShouldAddClassesToTimetableAndReturnTrue() {
         Student student = new Student("Erin", new Timetable());
 
-        Course course = new Course("5", "Singing", "Mr Soprano");
+        Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
@@ -66,7 +66,7 @@ class StudentTest {
     void enroll_ClashSoShouldReturnFalse() {
         Student student = new Student("Erin", new Timetable());
 
-        Course course1 = new Course("5", "Singing", "Mr Soprano");
+        Course course1 = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course1);
@@ -77,7 +77,7 @@ class StudentTest {
 
         student.enroll(course1);
 
-        Course course2 = new Course("7", "3D Modeling", "Mr Blendr");
+        Course course2 = new Course( "3D Modeling", "Mr Blendr");
         ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", "SNGL1", course2);
         course2.addClassSession(lab2);
 
@@ -88,7 +88,7 @@ class StudentTest {
     void enroll_ClashSoShouldInformUserByPrintingDetails() {
         Student student = new Student("Erin", new Timetable());
 
-        Course course1 = new Course("5", "Singing", "Mr Soprano");
+        Course course1 = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course1);
@@ -99,7 +99,7 @@ class StudentTest {
 
         student.enroll(course1);
 
-        Course course2 = new Course("7", "3D Modeling", "Mr Blendr");
+        Course course2 = new Course( "3D Modeling", "Mr Blendr");
         ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", "SNGL1", course2);
         course2.addClassSession(lab2);
 

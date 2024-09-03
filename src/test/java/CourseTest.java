@@ -14,7 +14,7 @@ class CourseTest {
 
     @Test
     void addClassSession_shouldAddSessionToSchedule() {
-        Course course = new Course("001a","Algs", "Gus");
+        Course course = new Course("Algs", "Gus");
         LocalTime start = LocalTime.of(13,30);
         LocalTime end = LocalTime.of(15,15);
         ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Red Building", "Gavin", "ALGSa", course);
@@ -26,7 +26,7 @@ class CourseTest {
 
     @Test
     void removeClassSession_shouldRemoveSessionFromSchedule() {
-        Course course = new Course("001a","Algs", "Gus");
+        Course course = new Course("Algs", "Gus");
         LocalTime start = LocalTime.of(14,20);
         LocalTime end = LocalTime.of(15,15);
 
