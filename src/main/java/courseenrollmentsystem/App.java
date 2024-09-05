@@ -165,7 +165,10 @@ public class App extends JFrame{
                 if (selectedIndex == -1) {
                     JOptionPane.showMessageDialog(null, "Please select a student to view details.");
                 }
+                else {
                 JOptionPane.showMessageDialog(null, studentListModel.get(selectedIndex).getInfo());
+
+                }
             }
         });
 
