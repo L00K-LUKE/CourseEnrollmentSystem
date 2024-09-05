@@ -1,6 +1,6 @@
 package courseenrollmentsystem;
 
-import main.java.*;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

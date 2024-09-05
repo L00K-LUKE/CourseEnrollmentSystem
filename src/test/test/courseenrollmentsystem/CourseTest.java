@@ -1,6 +1,6 @@
 package courseenrollmentsystem;
 
-import main.java.ClassSession;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
