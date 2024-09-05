@@ -1,14 +1,11 @@
-package test.java;
+package courseenrollmentsystem;
 
 import main.java.ClassSession;
-import main.java.Course;
-import main.java.DaysOfWeek;
-import main.java.Lecture;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
 class ClassSessionTest {
 
     @Test
@@ -23,10 +20,10 @@ class ClassSessionTest {
         LocalTime start2 = LocalTime.of(12,30);
         LocalTime end2 = LocalTime.of(14,30);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
-        ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
+        courseenrollmentsystem.ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
 
-        assertFalse(cs1.conflictsWith(cs2));
+        Assertions.assertFalse(cs1.conflictsWith(cs2));
     }
 
     @Test
@@ -41,10 +38,10 @@ class ClassSessionTest {
         LocalTime start2 = LocalTime.of(10,30);
         LocalTime end2 = LocalTime.of(11,30);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
-        ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
+        courseenrollmentsystem.ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
 
-        assertFalse(cs1.conflictsWith(cs2));
+        Assertions.assertFalse(cs1.conflictsWith(cs2));
     }
 
     @Test
@@ -56,10 +53,10 @@ class ClassSessionTest {
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "Main Building", course1);
-        ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start, end, "Across Campus", course2);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "Main Building", course1);
+        courseenrollmentsystem.ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start, end, "Across Campus", course2);
 
-        assertTrue(cs1.conflictsWith(cs2));
+        Assertions.assertTrue(cs1.conflictsWith(cs2));
     }
 
     @Test
@@ -70,10 +67,10 @@ class ClassSessionTest {
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(11,30);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "Main Building", course1);
-        ClassSession cs2 = new Lecture(DaysOfWeek.TUESDAY, start, end, "Across Campus", course2);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "Main Building", course1);
+        courseenrollmentsystem.ClassSession cs2 = new Lecture(DaysOfWeek.TUESDAY, start, end, "Across Campus", course2);
 
-        assertFalse(cs1.conflictsWith(cs2));
+        Assertions.assertFalse(cs1.conflictsWith(cs2));
 
     }
 
@@ -89,10 +86,10 @@ class ClassSessionTest {
         LocalTime start2 = LocalTime.of(11,0);
         LocalTime end2 = LocalTime.of(11,30);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
-        ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start1, end1, "Main Building", course1);
+        courseenrollmentsystem.ClassSession cs2 = new Lecture(DaysOfWeek.MONDAY, start2, end2, "Across Campus", course2);
 
-        assertTrue(cs1.conflictsWith(cs2));
+        Assertions.assertTrue(cs1.conflictsWith(cs2));
     }
 
     @Test
@@ -103,11 +100,11 @@ class ClassSessionTest {
         LocalTime start = LocalTime.of(9,0);
         LocalTime end = LocalTime.of(11,0);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
         String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 11:00 am";
 
-        assertEquals(correctlyFormatted, cs1.getDetails());
+        Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
 
     @Test
@@ -118,11 +115,11 @@ class ClassSessionTest {
         LocalTime start = LocalTime.of(9,0);
         LocalTime end = LocalTime.of(13,0);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
         String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 01:00 pm";
 
-        assertEquals(correctlyFormatted, cs1.getDetails());
+        Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
 
     @Test
@@ -133,11 +130,11 @@ class ClassSessionTest {
         LocalTime start = LocalTime.of(14,0);
         LocalTime end = LocalTime.of(17,15);
 
-        ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
+        courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
         String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 02:00 pm UNTIL 05:15 pm";
 
-        assertEquals(correctlyFormatted, cs1.getDetails());
+        Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
 
 }

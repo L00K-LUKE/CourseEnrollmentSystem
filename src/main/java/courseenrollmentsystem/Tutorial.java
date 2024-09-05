@@ -1,4 +1,4 @@
-package main.java;
+package courseenrollmentsystem;
 
 import java.time.LocalTime;
 

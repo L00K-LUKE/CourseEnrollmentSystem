@@ -1,4 +1,4 @@
-package main.java;
+package courseenrollmentsystem;
 
 import java.util.HashSet;
 import java.util.Set;

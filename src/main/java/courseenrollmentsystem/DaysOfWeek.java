@@ -1,4 +1,4 @@
-package main.java;
+package courseenrollmentsystem;
 
 public enum DaysOfWeek {
     MONDAY,
