@@ -6,16 +6,18 @@ import java.util.Set;
 public class Course {
     private static int courseIdIncrementer = 1;
 
-    String courseId;
-    String courseName;
-    String lecturer;
-    Set<ClassSession> schedule;
+    private String courseId;
+    private String courseName;
+    private String lecturer;
+    private Set<ClassSession> schedule;
+    private Set<Student> students;
 
     public Course(String courseName, String lecturer ) {
         this.courseId = String.valueOf(courseIdIncrementer++);
         this.courseName = courseName;
         this.lecturer = lecturer;
         this.schedule = new HashSet<>();
+        this.students = new HashSet<>();
     }
 
     // Getters
@@ -26,6 +28,10 @@ public class Course {
 
     public Set<ClassSession> getSchedule() {
         return schedule;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
     }
 
     // Methods
