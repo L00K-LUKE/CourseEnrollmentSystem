@@ -93,6 +93,19 @@ public class App extends JFrame{
             }
         });
 
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = courseList.getSelectedIndex();
+
+                if (selectedIndex != -1) {
+                    courseListModel.remove(selectedIndex);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a course to remove.");
+                }
+            }
+        });
+
 
         return coursePanel;
     }
