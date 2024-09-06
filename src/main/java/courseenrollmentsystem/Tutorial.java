@@ -12,6 +12,11 @@ public class Tutorial extends ClassSession{
         this.tutorialId = tutorialId;
         this.tutor = tutor;
 
-        setTitle(course.getCourseName() +" (Tutorial)");
+        setTitle("Tutorial");
+    }
+
+    @Override
+    public String toString() {
+        return super.getDetails();
     }
 }

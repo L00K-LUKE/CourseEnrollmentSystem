@@ -12,6 +12,11 @@ public class Lab extends ClassSession{
         this.labID = labID;
         this.tutor = tutor;
 
-        setTitle(course.getCourseName() +" (Lab)");
+        setTitle("Lab");
+    }
+
+    @Override
+    public String toString() {
+        return super.getDetails();
     }
 }
