@@ -6,8 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
 import java.util.Set;
 
 public class App extends JFrame{
@@ -106,6 +104,125 @@ public class App extends JFrame{
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select a course to remove.");
                 }
+            }
+        });
+
+        viewClassesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = courseList.getSelectedIndex();
+
+                if (selectedIndex != -1) {
+                    createSessionsFrame(courseListModel.get(selectedIndex));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a course to view its classes.");
+                }
+            }
+
+            private void createSessionsFrame(Course course) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        // REMOVE THIS WHEN DONE
+//                        Course c = new Course("Test Course", "Mr Test");
+//                        ClassSession l = new Lecture(DaysOfWeek.MONDAY, LocalTime.of(10,0), LocalTime.of(11,0),"barn", c);
+//                        ClassSession t = new Tutorial(DaysOfWeek.MONDAY, LocalTime.of(10,0), LocalTime.of(11,0),"barn", "Matt", "6", c);
+//
+//                        c.addClassSession(l);
+//                        c.addClassSession(t);
+//
+//                        Set<ClassSession> testSet = c.getSchedule();
+
+                        // ALSO CHANGE LINE USING THIS (CURR 175)
+
+                        JFrame frame = new JFrame("Classes");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setSize(800, 600);
+
+
+                        JButton addLectureButton;
+                        JButton addTutorialButton;
+                        JButton addLabButton;
+                        JButton removeButton;
+                        DefaultListModel<ClassSession> sessionsListModel;
+                        JList<ClassSession> sessionsList;
+
+
+                        // top with Add and Remove Buttons
+                        JPanel topPanel = new JPanel();
+                        topPanel.setLayout(new FlowLayout());
+
+                        addLectureButton = new JButton("Add Lecture");
+                        addTutorialButton = new JButton("Add Tutorial");
+                        addLabButton = new JButton("Add Lab");
+                        removeButton = new JButton("Remove Session");
+
+                        topPanel.add(addLectureButton);
+                        topPanel.add(addTutorialButton);
+                        topPanel.add(addLabButton);
+                        topPanel.add(removeButton);
+
+                        frame.add(topPanel, BorderLayout.NORTH);
+
+
+                        // Center with List of Sessions
+                        JPanel centerPanel = new JPanel();
+                        centerPanel.setLayout(new BorderLayout());
+
+                        sessionsListModel = new DefaultListModel<>();
+                        sessionsList = new JList<>(sessionsListModel);
+                        sessionsList.setBackground(Color.WHITE);
+                        sessionsList.setForeground(Color.BLACK);
+
+                        course.getSchedule().forEach(sessionsListModel::addElement);
+
+                        centerPanel.add(new JScrollPane(sessionsList), BorderLayout.CENTER);
+
+                        frame.add(centerPanel);
+                        frame.setVisible(true);
+
+                        addLectureButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                JComboBox<DaysOfWeek> daysComboBox = new JComboBox<>(DaysOfWeek.values());
+                                LocalTime[] times = new LocalTime[11];
+                                LocalTime time = LocalTime.of(8,0);
+                                for (int i = 0; i < 11; i++) {
+                                    times[i] = time;
+                                    time = time.plusHours(1);
+                                }
+                                JComboBox<LocalTime> startComboBox = new JComboBox<>(times);
+                                JComboBox<LocalTime> endComboBox = new JComboBox<>(times);
+                                JTextField location = new JTextField();
+
+                                location.setPreferredSize(new Dimension(200,25));
+
+                                JPanel lecPanel = new JPanel();
+                                lecPanel.setLayout(new FlowLayout());
+                                lecPanel.add(new JLabel("Day:"));
+                                lecPanel.add(daysComboBox);
+                                lecPanel.add(new JLabel("Start Time:"));
+                                lecPanel.add(startComboBox);
+                                lecPanel.add(new JLabel("End Time:"));
+                                lecPanel.add(endComboBox);
+                                lecPanel.add(new JLabel("Location:"));
+                                lecPanel.add(location);
+
+
+                                int result = JOptionPane.showConfirmDialog(null, lecPanel, "Add Lecture",JOptionPane.OK_CANCEL_OPTION);
+                                if (result == JOptionPane.OK_OPTION) {
+                                    Lecture lecture = new Lecture((DaysOfWeek) daysComboBox.getSelectedItem(), (LocalTime) startComboBox.getSelectedItem(), (LocalTime) endComboBox.getSelectedItem(),
+                                            location.getText(), course);
+
+                                    course.addClassSession(lecture);
+                                    sessionsListModel.addElement(lecture);
+                                }
+                            }
+                        });
+
+                    }
+                });
             }
         });
 
