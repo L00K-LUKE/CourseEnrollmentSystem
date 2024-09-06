@@ -14,7 +14,7 @@ class CourseTest {
         Course course = new Course("Algs", "Gus");
         LocalTime start = LocalTime.of(13,30);
         LocalTime end = LocalTime.of(15,15);
-        courseenrollmentsystem.ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Red Building", "Gavin", "ALGSa", course);
+        courseenrollmentsystem.ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Red Building", "Gavin", course);
 
         course.addClassSession(lab);
 
@@ -27,7 +27,7 @@ class CourseTest {
         LocalTime start = LocalTime.of(14,20);
         LocalTime end = LocalTime.of(15,15);
 
-        courseenrollmentsystem.ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Blue Building", "Mary", "ALGSb", course);
+        courseenrollmentsystem.ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Blue Building", "Mary", course);
 
         course.addClassSession(lab);
         course.removeClassSession(lab);

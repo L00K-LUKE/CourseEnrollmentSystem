@@ -18,8 +18,8 @@ class StudentTest {
         Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(12,20);
-        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
-        ClassSession tut = new Tutorial(DaysOfWeek.FRIDAY, start, end, "Garden", "Brian", "SNGT7", course);
+        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", course);
+        ClassSession tut = new Tutorial(DaysOfWeek.FRIDAY, start, end, "Garden", "Brian", course);
 
         course.addClassSession(lab);
         course.addClassSession(tut);
@@ -34,8 +34,8 @@ class StudentTest {
         Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(10,30);
         LocalTime end = LocalTime.of(12,20);
-        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
-        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", "SNGT7", course);
+        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", course);
+        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", course);
 
         course.addClassSession(lab);
 
@@ -52,8 +52,8 @@ class StudentTest {
         Course course = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
-        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course);
-        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", "SNGT7", course);
+        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", course);
+        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", course);
 
         course.addClassSession(lab);
         course.addClassSession(tut);
@@ -69,8 +69,8 @@ class StudentTest {
         Course course1 = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
-        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course1);
-        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", "SNGT7", course1);
+        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", course1);
+        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", course1);
 
         course1.addClassSession(lab);
         course1.addClassSession(tut);
@@ -78,7 +78,7 @@ class StudentTest {
         student.enroll(course1);
 
         Course course2 = new Course( "3D Modeling", "Mr Blendr");
-        ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", "SNGL1", course2);
+        ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", course2);
         course2.addClassSession(lab2);
 
         assertFalse(student.enroll(course2));
@@ -91,8 +91,8 @@ class StudentTest {
         Course course1 = new Course( "Singing", "Mr Soprano");
         LocalTime start = LocalTime.of(11,0);
         LocalTime end = LocalTime.of(12,0);
-        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", "SNGL1", course1);
-        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", "SNGT7", course1);
+        ClassSession lab = new Lab(DaysOfWeek.THURSDAY, start, end, "Garden", "Anna", course1);
+        ClassSession tut = new Tutorial(DaysOfWeek.THURSDAY, start, end, "Garden", "Brian", course1);
 
         course1.addClassSession(lab);
         course1.addClassSession(tut);
@@ -100,10 +100,10 @@ class StudentTest {
         student.enroll(course1);
 
         Course course2 = new Course( "3D Modeling", "Mr Blendr");
-        ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", "SNGL1", course2);
+        ClassSession lab2 = new Lab(DaysOfWeek.THURSDAY, start, end, "Computer Lab", "Anna", course2);
         course2.addClassSession(lab2);
 
-        String expectedOutput = "Clash Detected: COURSE: 3D Modeling | TYPE: 3D Modeling (Lab) | LOCATION: Computer Lab | DAY: THURSDAY | TIME: 11:00 am UNTIL 12:00 pm";
+        String expectedOutput = "Clash Detected: COURSE: 3D Modeling | TYPE: Lab | LOCATION: Computer Lab | DAY: THURSDAY | TIME: 11:00 am UNTIL 12:00 pm";
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOutput = System.out;

@@ -102,7 +102,7 @@ class ClassSessionTest {
 
         courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
-        String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 11:00 am";
+        String correctlyFormatted = "COURSE: WAD | TYPE: Lecture | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 11:00 am";
 
         Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
@@ -117,7 +117,7 @@ class ClassSessionTest {
 
         courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
-        String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 01:00 pm";
+        String correctlyFormatted = "COURSE: WAD | TYPE: Lecture | LOCATION: JMS112 | DAY: MONDAY | TIME: 09:00 am UNTIL 01:00 pm";
 
         Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
@@ -132,7 +132,7 @@ class ClassSessionTest {
 
         courseenrollmentsystem.ClassSession cs1 = new Lecture(DaysOfWeek.MONDAY, start, end, "JMS112", course);
 
-        String correctlyFormatted = "COURSE: WAD | TYPE: WAD (Lecture) | LOCATION: JMS112 | DAY: MONDAY | TIME: 02:00 pm UNTIL 05:15 pm";
+        String correctlyFormatted = "COURSE: WAD | TYPE: Lecture | LOCATION: JMS112 | DAY: MONDAY | TIME: 02:00 pm UNTIL 05:15 pm";
 
         Assertions.assertEquals(correctlyFormatted, cs1.getDetails());
     }
