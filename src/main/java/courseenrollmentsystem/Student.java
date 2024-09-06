@@ -31,6 +31,7 @@ public class Student {
             return false;
         }
         timetable.addCourse(course);
+        course.getStudents().add(this);
         return true;
     }
 
@@ -47,6 +48,11 @@ public class Student {
 
     private void informUserOfClash(ClassSession session) {
         System.out.println("Clash Detected: " + session.getDetails());
+    }
+
+    public void unenroll(Course course) {
+        timetable.removeCourse(course);
+        course.getStudents().remove(this);
     }
 
     public String getInfo() {
