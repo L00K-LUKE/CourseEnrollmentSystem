@@ -43,6 +43,7 @@ public class App extends JFrame{
 
         JButton addButton;
         JButton removeButton;
+        JButton viewClassesButton;
         DefaultListModel<Course> courseListModel;
         JList<Course> courseList;
 
@@ -52,9 +53,11 @@ public class App extends JFrame{
 
         addButton = new JButton("Add Course");
         removeButton = new JButton("Remove Course");
+        viewClassesButton = new JButton("View/Edit Classes");
 
         topPanel.add(addButton);
         topPanel.add(removeButton);
+        topPanel.add(viewClassesButton);
 
         coursePanel.add(topPanel, BorderLayout.NORTH);
 
