@@ -5,9 +5,11 @@ import java.util.Set;
 
 public class Timetable {
 
+    Set<Course> courses;
     Set<ClassSession> sessions;
 
     public Timetable() {
+        this.courses = new HashSet<>();
         this.sessions = new HashSet<>();
     }
 
@@ -39,7 +41,15 @@ public class Timetable {
     }
 
     public void addCourse(Course course) {
+        if (courses.add(course)) {
         Set<ClassSession> schedule = course.getSchedule();
         schedule.forEach(this::addSession);
+        }
+    }
+
+    public void removeCourse(Course course) {
+        if (courses.remove(course)) {
+            course.getSchedule().forEach(this::removeSession);
+        }
     }
 }
