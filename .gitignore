@@ -32,4 +32,4 @@ bin/
 ### Maven ###
 /target/
 
-/.idea/
+.idea/*
