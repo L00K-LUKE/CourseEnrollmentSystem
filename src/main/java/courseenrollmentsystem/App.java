@@ -1,9 +1,14 @@
 package courseenrollmentsystem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
+import java.util.Set;
 
 public class App extends JFrame{
 
@@ -154,7 +159,87 @@ public class App extends JFrame{
         timetableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Timetable feature is not implemented yet.");
+                int selectedIndex = studentList.getSelectedIndex();
+
+                if (selectedIndex != -1) {
+                    createTimetableFrame(studentListModel.get(selectedIndex).getTimetable());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a student to view their timetable.");
+                }
+            }
+
+            private void createTimetableFrame(Timetable studTimetable) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        JFrame frame = new JFrame("Timetable");
+                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        frame.setSize(800, 600);
+
+                        JPanel panel = new JPanel();
+                        panel.setLayout(new BorderLayout());
+
+                        // creating table
+                        String[] columnNames = {"Time","Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+                        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 11);
+                        JTable timetableTable = new JTable(tableModel);
+
+                        populateTable(tableModel, studTimetable);
+
+                        JScrollPane scrollPane = new JScrollPane(timetableTable);
+                        panel.add(scrollPane, BorderLayout.CENTER);
+
+                        frame.add(panel);
+                        frame.setVisible(true);
+                    }
+                });
+            }
+
+            private void populateTable(DefaultTableModel tableModel, Timetable studTimetable) {
+                LocalTime time = LocalTime.of(8,0);
+                for (int i = 0; i < 11; i++) {
+                    tableModel.setValueAt(time.toString(),i,0);
+                    time = time.plusHours(1);
+                }
+
+                Set<ClassSession> sessions = studTimetable.getSessions();
+
+                for (ClassSession session : sessions) {
+                    DaysOfWeek day = session.getDay();
+
+                    int colIdx;
+                    switch (day) {
+                        case MONDAY -> {
+                            colIdx = 1;
+                        }
+                        case TUESDAY -> {
+                            colIdx = 2;
+                        }
+                        case WEDNESDAY -> {
+                            colIdx = 3;
+                        }
+                        case THURSDAY -> {
+                            colIdx = 4;
+                        }
+                        case FRIDAY -> {
+                            colIdx = 5;
+                        }
+                        default -> {
+                            throw new RuntimeException("Session date is not within Mon-Fri range of enums");
+                        }
+                    }
+
+                    int startHourRow = session.getStartTime().getHour() -8;
+                    int endHourRow = session.getEndTime().getHour() -8;
+
+                    for (int i = startHourRow; i <= endHourRow; i++) {
+
+                        tableModel.setValueAt(session.getDetails(), i, colIdx);
+
+                    }
+                }
+
+
             }
         });
 
