@@ -173,41 +173,26 @@ public class App extends JFrame{
                         addLectureButton.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                JComboBox<DaysOfWeek> daysComboBox = new JComboBox<>(DaysOfWeek.values());
-                                LocalTime[] times = new LocalTime[11];
-                                LocalTime time = LocalTime.of(8,0);
-                                for (int i = 0; i < 11; i++) {
-                                    times[i] = time;
-                                    time = time.plusHours(1);
-                                }
-                                JComboBox<LocalTime> startComboBox = new JComboBox<>(times);
-                                JComboBox<LocalTime> endComboBox = new JComboBox<>(times);
-                                JTextField location = new JTextField();
-
-                                location.setPreferredSize(new Dimension(200,25));
-
-                                JPanel lecPanel = new JPanel();
-                                lecPanel.setLayout(new FlowLayout());
-                                lecPanel.add(new JLabel("Day:"));
-                                lecPanel.add(daysComboBox);
-                                lecPanel.add(new JLabel("Start Time:"));
-                                lecPanel.add(startComboBox);
-                                lecPanel.add(new JLabel("End Time:"));
-                                lecPanel.add(endComboBox);
-                                lecPanel.add(new JLabel("Location:"));
-                                lecPanel.add(location);
-
-
-                                int result = JOptionPane.showConfirmDialog(null, lecPanel, "Add Lecture",JOptionPane.OK_CANCEL_OPTION);
-                                if (result == JOptionPane.OK_OPTION) {
-                                    Lecture lecture = new Lecture((DaysOfWeek) daysComboBox.getSelectedItem(), (LocalTime) startComboBox.getSelectedItem(), (LocalTime) endComboBox.getSelectedItem(),
-                                            location.getText(), course);
-
-                                    course.addClassSession(lecture);
-                                    sessionsListModel.addElement(lecture);
-                                }
+                                createSession(course, sessionsListModel, SessionType.LECTURE);
                             }
                         });
+
+                        addLabButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                createSession(course, sessionsListModel, SessionType.LAB);
+                            }
+                        });
+
+                        addTutorialButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                createSession(course, sessionsListModel, SessionType.TUTORIAL);
+                            }
+                        });
+
+
+
 
                         removeButton.addActionListener(new ActionListener() {
                             @Override
@@ -224,6 +209,74 @@ public class App extends JFrame{
 
                     }
                 });
+            }
+
+            private void createSession(Course course, DefaultListModel<ClassSession> sessionsListModel, SessionType sessionType) {
+
+                JComboBox<DaysOfWeek> daysComboBox = new JComboBox<>(DaysOfWeek.values());
+                LocalTime[] times = new LocalTime[11];
+                LocalTime time = LocalTime.of(8,0);
+                for (int i = 0; i < 11; i++) {
+                    times[i] = time;
+                    time = time.plusHours(1);
+                }
+                JComboBox<LocalTime> startComboBox = new JComboBox<>(times);
+                JComboBox<LocalTime> endComboBox = new JComboBox<>(times);
+                JTextField location = new JTextField();
+
+                location.setPreferredSize(new Dimension(200,25));
+
+                JPanel sessionPanel = new JPanel();
+                sessionPanel.setLayout(new FlowLayout());
+                sessionPanel.add(new JLabel("Day:"));
+                sessionPanel.add(daysComboBox);
+                sessionPanel.add(new JLabel("Start Time:"));
+                sessionPanel.add(startComboBox);
+                sessionPanel.add(new JLabel("End Time:"));
+                sessionPanel.add(endComboBox);
+                sessionPanel.add(new JLabel("Location:"));
+                sessionPanel.add(location);
+
+                if (sessionType == SessionType.LECTURE) {
+                    int result = JOptionPane.showConfirmDialog(null, sessionPanel, "Add Lecture",JOptionPane.OK_CANCEL_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        Lecture lecture = new Lecture((DaysOfWeek) daysComboBox.getSelectedItem(), (LocalTime) startComboBox.getSelectedItem(), (LocalTime) endComboBox.getSelectedItem(),
+                                location.getText(), course);
+
+                        course.addClassSession(lecture);
+                        sessionsListModel.addElement(lecture);
+                    }
+                } else if (sessionType == SessionType.LAB) {
+                    JTextField tutorInput = new JTextField();
+                    tutorInput.setPreferredSize(new Dimension(200,25));
+                    sessionPanel.add(new JLabel("Tutor:"));
+                    sessionPanel.add(tutorInput);
+
+
+                    int result = JOptionPane.showConfirmDialog(null, sessionPanel, "Add Lecture",JOptionPane.OK_CANCEL_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        Lab lab = new Lab((DaysOfWeek) daysComboBox.getSelectedItem(), (LocalTime) startComboBox.getSelectedItem(), (LocalTime) endComboBox.getSelectedItem(),
+                                location.getText(), tutorInput.getText(), course);
+
+                        course.addClassSession(lab);
+                        sessionsListModel.addElement(lab);
+                    }
+                } else {
+                    JTextField tutorInput = new JTextField();
+                    sessionPanel.add(new JLabel("Tutor:"));
+                    sessionPanel.add(tutorInput);
+
+                    int result = JOptionPane.showConfirmDialog(null, sessionPanel, "Add Tutorial",JOptionPane.OK_CANCEL_OPTION);
+                    if (result == JOptionPane.OK_OPTION) {
+                        Tutorial tut = new Tutorial((DaysOfWeek) daysComboBox.getSelectedItem(), (LocalTime) startComboBox.getSelectedItem(), (LocalTime) endComboBox.getSelectedItem(),
+                                location.getText(), tutorInput.getText(), course);
+
+                        course.addClassSession(tut);
+                        sessionsListModel.addElement(tut);
+                    }
+                }
+
+
             }
         });
 
