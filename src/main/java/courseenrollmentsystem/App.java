@@ -124,21 +124,9 @@ public class App extends JFrame{
                     @Override
                     public void run() {
 
-                        // REMOVE THIS WHEN DONE
-//                        Course c = new Course("Test Course", "Mr Test");
-//                        ClassSession l = new Lecture(DaysOfWeek.MONDAY, LocalTime.of(10,0), LocalTime.of(11,0),"barn", c);
-//                        ClassSession t = new Tutorial(DaysOfWeek.MONDAY, LocalTime.of(10,0), LocalTime.of(11,0),"barn", "Matt", "6", c);
-//
-//                        c.addClassSession(l);
-//                        c.addClassSession(t);
-//
-//                        Set<ClassSession> testSet = c.getSchedule();
-
-                        // ALSO CHANGE LINE USING THIS (CURR 175)
-
                         JFrame frame = new JFrame("Classes");
                         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                        frame.setSize(800, 600);
+                        frame.setSize(640, 480);
 
 
                         JButton addLectureButton;
@@ -217,6 +205,19 @@ public class App extends JFrame{
 
                                     course.addClassSession(lecture);
                                     sessionsListModel.addElement(lecture);
+                                }
+                            }
+                        });
+
+                        removeButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int selectedIndex = sessionsList.getSelectedIndex();
+                                if (selectedIndex != -1) {
+                                    course.removeClassSession(sessionsListModel.get(selectedIndex));
+                                    sessionsListModel.remove(selectedIndex);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Please select a session to remove.");
                                 }
                             }
                         });
