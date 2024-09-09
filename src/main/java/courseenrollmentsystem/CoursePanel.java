@@ -75,6 +75,8 @@ public class CoursePanel {
     private void removeCourse(ActionEvent e) {
         int selectedIndex = courseList.getSelectedIndex();
         if (selectedIndex != -1) {
+            Course course = courseListModel.get(selectedIndex);
+            course.getStudents().forEach(student -> student.unenroll(course));
             courseListModel.remove(selectedIndex);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a course to remove.");
@@ -96,7 +98,6 @@ public class CoursePanel {
 
         if (selectedIndex != -1) {
             Course selectedCourse = courseListModel.get(selectedIndex);
-
             DefaultListModel<Student> allStudents = studentListModel;
 
             if (allStudents.size() == 0) {
@@ -116,9 +117,7 @@ public class CoursePanel {
                         JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
                     } else {
                         JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
-
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(null, "No student was selected");
                 }
