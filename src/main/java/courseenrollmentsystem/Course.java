@@ -40,6 +40,9 @@ public class Course {
     }
 
     public void removeClassSession(ClassSession session) {
+        for (Student student : students) {
+            student.getTimetable().removeSession(session);
+        }
         schedule.remove(session);
     }
 
