@@ -19,6 +19,9 @@ public class Timetable {
         return sessions;
     }
 
+    public Set<Course> getCourses() {
+        return courses;
+    }
 
     // Methods
 
