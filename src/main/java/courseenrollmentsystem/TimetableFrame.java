@@ -3,7 +3,6 @@ package courseenrollmentsystem;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -58,7 +57,7 @@ public class TimetableFrame {
 
             for (int i = startHourRow; i <= endHourRow; i++) {
 
-                tableModel.setValueAt(session.getDetails(), i, colIdx);
+                tableModel.setValueAt(session.getDetails(), i, colIdx); // TODO: make Timetable cells bigger
 
             }
         }
@@ -70,24 +69,12 @@ public class TimetableFrame {
 
         int colIdx;
         switch (day) {
-            case MONDAY -> {
-                colIdx = 1;
-            }
-            case TUESDAY -> {
-                colIdx = 2;
-            }
-            case WEDNESDAY -> {
-                colIdx = 3;
-            }
-            case THURSDAY -> {
-                colIdx = 4;
-            }
-            case FRIDAY -> {
-                colIdx = 5;
-            }
-            default -> {
-                throw new RuntimeException("Session date is not within Mon-Fri range of enums");
-            }
+            case MONDAY -> colIdx = 1;
+            case TUESDAY -> colIdx = 2;
+            case WEDNESDAY -> colIdx = 3;
+            case THURSDAY -> colIdx = 4;
+            case FRIDAY -> colIdx = 5;
+            default -> throw new RuntimeException("Session date is not within Mon-Fri range of enums");
         }
         return colIdx;
     }
