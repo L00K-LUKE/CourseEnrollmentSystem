@@ -100,7 +100,7 @@ public class CoursePanel {
             Course selectedCourse = courseListModel.get(selectedIndex);
             DefaultListModel<Student> allStudents = studentListModel;
 
-            if (allStudents.size() == 0) {
+            if (allStudents.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "There are no students available for enrollment.");
                 return;
             }
