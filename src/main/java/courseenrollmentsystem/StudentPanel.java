@@ -81,4 +81,8 @@ public class StudentPanel {
     public JPanel getPanel() {
         return studentPanel;
     }
+
+    public DefaultListModel<Student> getStudentListModel() {
+        return studentListModel;
+    }
 }

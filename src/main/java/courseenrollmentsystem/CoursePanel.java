@@ -10,9 +10,11 @@ public class CoursePanel {
     private JPanel coursePanel;
     private DefaultListModel<Course> courseListModel;
     private JList<Course> courseList;
+    private DefaultListModel<Student> studentListModel;
     
-    public CoursePanel() {
+    public CoursePanel(DefaultListModel<Student> studentListModel) {
         coursePanel = new JPanel(new BorderLayout());
+        this.studentListModel = studentListModel;
         initialiseComponents();
     }
 
@@ -93,7 +95,35 @@ public class CoursePanel {
         int selectedIndex = courseList.getSelectedIndex();
 
         if (selectedIndex != -1) {
-            // TODO: implement enrollment logic
+            Course selectedCourse = courseListModel.get(selectedIndex);
+
+            DefaultListModel<Student> allStudents = studentListModel;
+
+            if (allStudents.size() == 0) {
+                JOptionPane.showMessageDialog(null, "There are no students available for enrollment.");
+                return;
+            }
+
+            JList<Student> studentList = new JList<>(allStudents);
+            studentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            int result = JOptionPane.showConfirmDialog(null, new JScrollPane(studentList), "Select a Student to Enrol", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+                Student selectedStudent = studentList.getSelectedValue();
+                if (selectedStudent != null)  {
+                    if (selectedStudent.enroll(selectedCourse)) {
+                        JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No student was selected");
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(null, "Please select a course to enrol students into.");
         }

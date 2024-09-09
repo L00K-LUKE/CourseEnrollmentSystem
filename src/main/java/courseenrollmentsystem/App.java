@@ -20,7 +20,7 @@ public class App extends JFrame{
         tabbedPane.addTab("Students", studentPanel.getPanel());
 
         // Create course panel
-        CoursePanel coursePanel = new CoursePanel();
+        CoursePanel coursePanel = new CoursePanel(studentPanel.getStudentListModel());
         tabbedPane.addTab("Courses", coursePanel.getPanel());
 
         // Add tabbed pane to frame
