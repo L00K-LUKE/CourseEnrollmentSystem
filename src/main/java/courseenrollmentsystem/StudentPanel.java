@@ -3,6 +3,7 @@ package courseenrollmentsystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Set;
 
 
 public class StudentPanel {
@@ -49,10 +50,15 @@ public class StudentPanel {
     }
 
 
-    //TODO: un-enrol students from courses when they are deleted
     private void removeStudent(ActionEvent e) {
         int selectedIndex = studentList.getSelectedIndex();
         if (selectedIndex != -1) {
+            Student student = studentListModel.getElementAt(selectedIndex);
+            Set<Course> courses = student.getTimetable().getCourses();
+            for (Course course : courses) {
+                student.unenroll(course);
+            }
+
             studentListModel.remove(selectedIndex);
         } else {
             JOptionPane.showMessageDialog(null, "Please select a student to remove.");
