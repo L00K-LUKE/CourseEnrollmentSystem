@@ -42,13 +42,20 @@ public class StudentPanel {
         detailsButton.addActionListener(this::viewDetails);
     }
 
+    public JPanel getPanel() {
+        return studentPanel;
+    }
+
+    public DefaultListModel<Student> getStudentListModel() {
+        return studentListModel;
+    }
+
     private void addStudent(ActionEvent e) {
         String studentName = JOptionPane.showInputDialog("Enter Student Name:");
         if (studentName != null && !studentName.trim().isEmpty()) {
             studentListModel.addElement(new Student(studentName, new Timetable()));
         }
     }
-
 
     private void removeStudent(ActionEvent e) {
         int selectedIndex = studentList.getSelectedIndex();
@@ -80,15 +87,29 @@ public class StudentPanel {
             JOptionPane.showMessageDialog(null, "Please select a student to view details.");
         }
         else {
-            JOptionPane.showMessageDialog(null, studentListModel.get(selectedIndex).getInfo());
+            JOptionPane.showMessageDialog(null, detailsPanel(studentListModel.get(selectedIndex)));
         }
     }
 
-    public JPanel getPanel() {
-        return studentPanel;
+    private JPanel detailsPanel(Student student) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel studentDetails = new JLabel(student.getInfo());
+
+        JLabel titleLabel = new JLabel("Enrolled on the Following Courses:");
+        JLabel studentCourses = new JLabel();
+
+        for (Course course : student.getTimetable().getCourses()) {
+            studentCourses.setText(studentCourses.getText() + course.getCourseName() +", ");
+        }
+
+        panel.add(studentDetails);
+        panel.add(titleLabel);
+        panel.add(studentCourses);
+
+        return panel;
     }
 
-    public DefaultListModel<Student> getStudentListModel() {
-        return studentListModel;
-    }
+
 }
