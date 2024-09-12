@@ -15,13 +15,13 @@ public class App extends JFrame{
         // Create a tabbed pane
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // Create student panel
-        StudentPanel studentPanel = new StudentPanel();
-        tabbedPane.addTab("Students", studentPanel.getPanel());
-
         // Create course panel
-        CoursePanel coursePanel = new CoursePanel(studentPanel.getStudentListModel());
+        CoursePanel coursePanel = new CoursePanel();
         tabbedPane.addTab("Courses", coursePanel.getPanel());
+
+        // Create student panel
+        StudentPanel studentPanel = new StudentPanel(coursePanel.getCourseListModel());
+        tabbedPane.addTab("Students", studentPanel.getPanel());
 
         // Add tabbed pane to frame
         frame.add(tabbedPane, BorderLayout.CENTER);

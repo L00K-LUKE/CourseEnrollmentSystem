@@ -10,9 +10,11 @@ public class StudentPanel {
     private JPanel studentPanel;
     private DefaultListModel<Student> studentListModel;
     private JList<Student> studentList;
+    private DefaultListModel<Course> courseListModel;
 
-    public StudentPanel() {
+    public StudentPanel(DefaultListModel<Course> courseListModel) {
         studentPanel = new JPanel(new BorderLayout());
+        this.courseListModel = courseListModel;
         initialiseComponents();
     }
 
@@ -27,11 +29,13 @@ public class StudentPanel {
         JButton removeButton = new JButton("Remove Student");
         JButton timetableButton = new JButton("Timetable");
         JButton detailsButton = new JButton("Details");
+        JButton enrolButton = new JButton("Enroll");
 
         bottomPanel.add(addButton);
         bottomPanel.add(removeButton);
         bottomPanel.add(timetableButton);
         bottomPanel.add(detailsButton);
+        bottomPanel.add(enrolButton);
 
         studentPanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -40,6 +44,7 @@ public class StudentPanel {
         removeButton.addActionListener(this::removeStudent);
         timetableButton.addActionListener(this::viewTimetable);
         detailsButton.addActionListener(this::viewDetails);
+        enrolButton.addActionListener(this::enrolStudent);
     }
 
     public JPanel getPanel() {
@@ -85,8 +90,7 @@ public class StudentPanel {
         int selectedIndex = studentList.getSelectedIndex();
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(null, "Please select a student to view details.");
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, detailsPanel(studentListModel.get(selectedIndex)));
         }
     }
@@ -101,7 +105,7 @@ public class StudentPanel {
         JLabel studentCourses = new JLabel();
 
         for (Course course : student.getTimetable().getCourses()) {
-            studentCourses.setText(studentCourses.getText() + course.getCourseName() +", ");
+            studentCourses.setText(studentCourses.getText() + course.getCourseName() + ", ");
         }
 
         panel.add(studentDetails);
@@ -109,6 +113,41 @@ public class StudentPanel {
         panel.add(studentCourses);
 
         return panel;
+    }
+
+    private void enrolStudent(ActionEvent e) {
+        int selectedIndex = studentList.getSelectedIndex();
+
+        if (selectedIndex != -1) {
+            Student selectedStudent = studentListModel.get(selectedIndex);
+            DefaultListModel<Course> allCourses = courseListModel;
+
+            if (allCourses.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "There are no courses available for enrollment.");
+                return;
+            }
+
+            JList<Course> courseList = new JList<>(allCourses);
+            courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            int result = JOptionPane.showConfirmDialog(null, new JScrollPane(courseList), "Select a Course to Enrol", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+                Course selectedCourse = courseList.getSelectedValue();
+                if (selectedCourse != null) {
+                    if (selectedStudent.enroll(selectedCourse)) {
+                        JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No course was selected");
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a student to enrol into a course.");
+        }
     }
 
 

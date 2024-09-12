@@ -6,15 +6,13 @@ import java.awt.event.ActionEvent;
 
 
 public class CoursePanel {
-    
+
     private JPanel coursePanel;
     private DefaultListModel<Course> courseListModel;
     private JList<Course> courseList;
-    private DefaultListModel<Student> studentListModel;
-    
-    public CoursePanel(DefaultListModel<Student> studentListModel) {
+
+    public CoursePanel() {
         coursePanel = new JPanel(new BorderLayout());
-        this.studentListModel = studentListModel;
         initialiseComponents();
     }
 
@@ -24,12 +22,11 @@ public class CoursePanel {
         JButton addButton = new JButton("Add Course");
         JButton removeButton = new JButton("Remove Course");
         JButton viewClassesButton = new JButton("View/Edit Classes");
-        JButton enrollButton = new JButton("Enroll Students");
 
         botPanel.add(addButton);
         botPanel.add(removeButton);
         botPanel.add(viewClassesButton);
-        botPanel.add(enrollButton);
+
 
         coursePanel.add(botPanel, BorderLayout.SOUTH);
 
@@ -44,7 +41,7 @@ public class CoursePanel {
         addButton.addActionListener(this::addCourse);
         removeButton.addActionListener(this::removeCourse);
         viewClassesButton.addActionListener(this::viewClasses);
-        enrollButton.addActionListener(this::enrollStudents);
+
     }
 
     private void addCourse(ActionEvent e) {
@@ -59,8 +56,8 @@ public class CoursePanel {
     }
 
     private JPanel createInputPanel(JTextField courseNameField, JTextField lecturerNameField) {
-        courseNameField.setPreferredSize(new Dimension(200,25));
-        lecturerNameField.setPreferredSize(new Dimension(200,25));
+        courseNameField.setPreferredSize(new Dimension(200, 25));
+        lecturerNameField.setPreferredSize(new Dimension(200, 25));
 
         JPanel inputPanel = new JPanel(new FlowLayout());
         inputPanel.add(new JLabel("Course Name:"));
@@ -93,42 +90,12 @@ public class CoursePanel {
         }
     }
 
-    private void enrollStudents(ActionEvent e) {
-        int selectedIndex = courseList.getSelectedIndex();
-
-        if (selectedIndex != -1) {
-            Course selectedCourse = courseListModel.get(selectedIndex);
-            DefaultListModel<Student> allStudents = studentListModel;
-
-            if (allStudents.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "There are no students available for enrollment.");
-                return;
-            }
-
-            JList<Student> studentList = new JList<>(allStudents);
-            studentList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-            int result = JOptionPane.showConfirmDialog(null, new JScrollPane(studentList), "Select a Student to Enrol", JOptionPane.OK_CANCEL_OPTION);
-
-            if (result == JOptionPane.OK_OPTION) {
-                Student selectedStudent = studentList.getSelectedValue();
-                if (selectedStudent != null)  {
-                    if (selectedStudent.enroll(selectedCourse)) {
-                        JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No student was selected");
-                }
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a course to enrol students into.");
-        }
-    }
 
     public Component getPanel() {
         return coursePanel;
+    }
+
+    public DefaultListModel<Course> getCourseListModel() {
+        return courseListModel;
     }
 }
