@@ -107,8 +107,6 @@ public class CoursePanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        JLabel titleLabel = new JLabel("Students Enrolled on Course:");
-
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Students");
         JTable table = new JTable(tableModel);
