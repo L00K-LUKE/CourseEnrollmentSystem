@@ -2,6 +2,7 @@ package courseenrollmentsystem;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.time.LocalTime;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class TimetableFrame {
 
         JFrame frame = new JFrame("Timetable");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(640, 480);
+        frame.setSize(1056, 792);
 
         JPanel panel = new JPanel(new BorderLayout());
         frame.add(panel);
@@ -28,11 +29,34 @@ public class TimetableFrame {
     private void placeTable(JPanel panel) {
         // creating table
         String[] columnNames = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 11);
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 11){
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column == 0) {
+                    return String.class;
+                }
+                return JLabel.class;
+            }
+        };
+
         JTable timetableTable = new JTable(tableModel);
+
+        for (int i = 0; i <columnNames.length; i++) {
+            timetableTable.getColumnModel().getColumn(i).setCellRenderer(new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(JTable table, Object value,
+                                                               boolean isSelected, boolean hasFocus, int row, int column) {
+                    if (value instanceof JLabel) {
+                        return (JLabel) value; // Return JLabel directly
+                    }
+                    return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                }
+            });
+        }
 
         populateTable(tableModel, timetable);
 
+        timetableTable.setRowHeight(60);
         JScrollPane scrollPane = new JScrollPane(timetableTable);
         panel.add(scrollPane, BorderLayout.CENTER);
 
@@ -56,7 +80,7 @@ public class TimetableFrame {
 
             for (int i = startHourRow; i <= endHourRow; i++) {
 
-                tableModel.setValueAt(session.timetableString(), i, colIdx);
+                tableModel.setValueAt(new JLabel(session.timetableString()), i, colIdx);
 
             }
         }

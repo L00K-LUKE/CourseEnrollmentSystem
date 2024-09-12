@@ -70,8 +70,8 @@ public abstract class ClassSession {
     public String timetableString() {
         String courseName = course.getCourseName();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        return String.format("COURSE: %s \n TYPE: %s \n LOCATION: %s \n DAY: %s \n TIME: %s UNTIL %s",
-                courseName, this.title, this.location, this.day, this.startTime.format(formatter), this.endTime.format(formatter));
+        return String.format("<HTML>COURSE: %s <br> TYPE: %s <br> LOCATION: %s</HTML>",
+                courseName, this.title, this.location);
     }
 
 
