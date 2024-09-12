@@ -20,22 +20,33 @@ public class StudentPanel {
 
     private void initialiseComponents() {
         // Components and Layout
+
+        // Center Panel
         studentListModel = new DefaultListModel<>();
         studentList = new JList<>(studentListModel);
         studentPanel.add(new JScrollPane(studentList), BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel(new FlowLayout());
+        // Top Panel
+        JPanel topPanel = new JPanel(new FlowLayout());
         JButton addButton = new JButton("Add Student");
         JButton removeButton = new JButton("Remove Student");
+
+        topPanel.add(addButton);
+        topPanel.add(removeButton);
+
+        studentPanel.add(topPanel, BorderLayout.NORTH);
+
+        // Bottom Panel
+        JPanel bottomPanel = new JPanel(new FlowLayout());
         JButton timetableButton = new JButton("Timetable");
         JButton detailsButton = new JButton("Details");
-        JButton enrolButton = new JButton("Enroll");
+        JButton enrolButton = new JButton("Enrol");
+        JButton unEnrolButton = new JButton("Drop Course");
 
-        bottomPanel.add(addButton);
-        bottomPanel.add(removeButton);
         bottomPanel.add(timetableButton);
         bottomPanel.add(detailsButton);
         bottomPanel.add(enrolButton);
+        bottomPanel.add(unEnrolButton);
 
         studentPanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -45,7 +56,9 @@ public class StudentPanel {
         timetableButton.addActionListener(this::viewTimetable);
         detailsButton.addActionListener(this::viewDetails);
         enrolButton.addActionListener(this::enrolStudent);
+        unEnrolButton.addActionListener(this::dropCourse);
     }
+
 
     public JPanel getPanel() {
         return studentPanel;
@@ -118,37 +131,72 @@ public class StudentPanel {
     private void enrolStudent(ActionEvent e) {
         int selectedIndex = studentList.getSelectedIndex();
 
-        if (selectedIndex != -1) {
-            Student selectedStudent = studentListModel.get(selectedIndex);
-            DefaultListModel<Course> allCourses = courseListModel;
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a student to enrol into a course.");
+            return;
+        }
 
-            if (allCourses.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "There are no courses available for enrollment.");
+        Student selectedStudent = studentListModel.get(selectedIndex);
+        DefaultListModel<Course> allCourses = courseListModel;
+
+        if (allCourses.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "There are no courses available for enrollment.");
+            return;
+        }
+
+        JList<Course> courseList = new JList<>(allCourses);
+        courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        int result = JOptionPane.showConfirmDialog(null, new JScrollPane(courseList), "Select a Course to Enrol", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            Course selectedCourse = courseList.getSelectedValue();
+            if (selectedCourse == null) {
+                JOptionPane.showMessageDialog(null, "No course was selected");
                 return;
             }
 
-            JList<Course> courseList = new JList<>(allCourses);
-            courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-            int result = JOptionPane.showConfirmDialog(null, new JScrollPane(courseList), "Select a Course to Enrol", JOptionPane.OK_CANCEL_OPTION);
-
-            if (result == JOptionPane.OK_OPTION) {
-                Course selectedCourse = courseList.getSelectedValue();
-                if (selectedCourse != null) {
-                    if (selectedStudent.enroll(selectedCourse)) {
-                        JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No course was selected");
-                }
+            if (selectedStudent.enroll(selectedCourse)) {
+                JOptionPane.showMessageDialog(null, "Student Enrolled Successfully");
+            } else {
+                JOptionPane.showMessageDialog(null, "Student Enrollment Failed- Check Timetable for Clashes");
             }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a student to enrol into a course.");
         }
     }
 
+    private void dropCourse(ActionEvent event) {
+        int selectedIndex = studentList.getSelectedIndex();
 
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a student.");
+            return;
+        }
+
+        Student selectedStudent = studentListModel.get(selectedIndex);
+        Set<Course> enrolledInCourses = selectedStudent.getTimetable().getCourses();
+
+        if (enrolledInCourses.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Student is not enrolled in any courses.");
+            return;
+        }
+
+        DefaultListModel<Course> coursesModel = new DefaultListModel<>();
+        enrolledInCourses.forEach(coursesModel::addElement);
+
+        JList<Course> courseList = new JList<>(coursesModel);
+        courseList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        int result = JOptionPane.showConfirmDialog(null, new JScrollPane(courseList), "Select a Course to Drop", JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            Course selectedCourse = courseList.getSelectedValue();
+            if (selectedCourse == null) {
+                JOptionPane.showMessageDialog(null, "No course was selected");
+                return;
+            }
+            selectedStudent.unenroll(selectedCourse);
+            JOptionPane.showMessageDialog(null, "Course has been Dropped");
+        }
+
+    }
 }
