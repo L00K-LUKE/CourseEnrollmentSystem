@@ -15,20 +15,19 @@ public class TimetableFrame {
 
         JFrame frame = new JFrame("Timetable");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(640,480);
+        frame.setSize(640, 480);
 
         JPanel panel = new JPanel(new BorderLayout());
         frame.add(panel);
 
         placeTable(panel);
 
-
         frame.setVisible(true);
     }
 
     private void placeTable(JPanel panel) {
         // creating table
-        String[] columnNames = {"Time","Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        String[] columnNames = {"Time", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 11);
         JTable timetableTable = new JTable(tableModel);
 
@@ -41,9 +40,9 @@ public class TimetableFrame {
 
 
     private void populateTable(DefaultTableModel tableModel, Timetable studTimetable) {
-        LocalTime time = LocalTime.of(8,0);
+        LocalTime time = LocalTime.of(8, 0);
         for (int i = 0; i < 11; i++) {
-            tableModel.setValueAt(time.toString(),i,0);
+            tableModel.setValueAt(time.toString(), i, 0);
             time = time.plusHours(1);
         }
 
@@ -52,12 +51,12 @@ public class TimetableFrame {
         for (ClassSession session : sessions) {
             int colIdx = getColIdx(session);
 
-            int startHourRow = session.getStartTime().getHour() -8;
-            int endHourRow = session.getEndTime().getHour() -8;
+            int startHourRow = session.getStartTime().getHour() - 8;
+            int endHourRow = session.getEndTime().getHour() - 8;
 
             for (int i = startHourRow; i <= endHourRow; i++) {
 
-                tableModel.setValueAt(session.getDetails(), i, colIdx); // TODO: make Timetable cells bigger
+                tableModel.setValueAt(session.timetableString(), i, colIdx);
 
             }
         }
