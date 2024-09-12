@@ -1,6 +1,7 @@
 package courseenrollmentsystem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -22,11 +23,12 @@ public class CoursePanel {
         JButton addButton = new JButton("Add Course");
         JButton removeButton = new JButton("Remove Course");
         JButton viewClassesButton = new JButton("View/Edit Classes");
+        JButton viewStudents = new JButton("View Students");
 
         botPanel.add(addButton);
         botPanel.add(removeButton);
         botPanel.add(viewClassesButton);
-
+        botPanel.add(viewStudents);
 
         coursePanel.add(botPanel, BorderLayout.SOUTH);
 
@@ -41,8 +43,10 @@ public class CoursePanel {
         addButton.addActionListener(this::addCourse);
         removeButton.addActionListener(this::removeCourse);
         viewClassesButton.addActionListener(this::viewClasses);
+        viewStudents.addActionListener(this::viewStudents);
 
     }
+
 
     private void addCourse(ActionEvent e) {
         JTextField courseNameField = new JTextField();
@@ -90,6 +94,38 @@ public class CoursePanel {
         }
     }
 
+    private void viewStudents(ActionEvent event) {
+        int selectedIndex = courseList.getSelectedIndex();
+
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a course to view its students.");
+            return;
+        }
+
+        Course selectedCourse = courseListModel.get(selectedIndex);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        JLabel titleLabel = new JLabel("Students Enrolled on Course:");
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Students");
+        JTable table = new JTable(tableModel);
+
+        for (Student student : selectedCourse.getStudents()) {
+            String[] row = {student.getInfo()};
+            tableModel.addRow(row);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane);
+
+        JOptionPane.showMessageDialog(null, panel);
+
+    }
+
+    // Getters
 
     public Component getPanel() {
         return coursePanel;
