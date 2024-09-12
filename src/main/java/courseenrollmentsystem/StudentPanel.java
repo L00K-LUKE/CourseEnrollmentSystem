@@ -64,10 +64,6 @@ public class StudentPanel {
         return studentPanel;
     }
 
-    public DefaultListModel<Student> getStudentListModel() {
-        return studentListModel;
-    }
-
     private void addStudent(ActionEvent e) {
         String studentName = JOptionPane.showInputDialog("Enter Student Name:");
         if (studentName != null && !studentName.trim().isEmpty()) {
